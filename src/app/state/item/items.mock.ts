@@ -1,4 +1,3 @@
-import { ItemState } from './item.model';
 
 export const itemsListMock: {
   id: number;
@@ -47,7 +46,7 @@ export const itemsListMock: {
   },
 ];
 
-export const itemsStateMock: ItemState = {
+export const itemsStateMock = {
   items: itemsListMock,
   isLoading: false,
 };

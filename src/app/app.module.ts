@@ -5,11 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { ItemStoreModule } from './state/item/item-store.module';
 
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CoursesEffects } from './state/item/item.effects';
+import { courseReducer } from './state/item/item.reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,6 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
-    ItemStoreModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -27,6 +27,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
         deps: [HttpClient],
       },
     }),
+    StoreModule.forRoot({ courses: courseReducer}),
+    EffectsModule.forRoot([CoursesEffects])
   ],
   providers: [],
   bootstrap: [AppComponent],

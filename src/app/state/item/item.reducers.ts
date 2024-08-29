@@ -1,60 +1,39 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { ItemState } from './item.model';
-import * as fromItems from './index';
+import { createReducer, on } from '@ngrx/store';
+import { CourseApiActions } from './items.actions';
+import { Item } from 'src/app/core/models/item.model';
 
-export const initialItemsState: ItemState = {
-  items: [],
-  isLoading: false,
+export interface CourseState {
+  courses: Item[];
+  selectedCourseId: number | undefined;
+  error: any;
+  loading: boolean;
+}
+
+export const initialState: CourseState = {
+  courses: [],
+  selectedCourseId: undefined,
+  error: null,
+  loading: false,
 };
 
-const reducer = createReducer<ItemState>(
-  initialItemsState,
-  on(fromItems.getItems, (state) => {
-    return {
-      ...state,
-      isLoading: true,
-    };
-  }),
-
-  on(fromItems.getItemsSuccess, (state, { items }) => {
-    return {
-      ...state,
-      isLoading: false,
-      items,
-    };
-  }),
-
-  on(fromItems.createItem, (state) => {
-    return {
-      ...state,
-      isLoading: true,
-    };
-  }),
-
-  on(fromItems.createItemSuccess, (state, { item }) => {
-    return {
-      ...state,
-      items: [...state.items, item],
-      isLoading: false,
-    };
-  }),
-
-  on(fromItems.deleteItem, (state) => {
-    return {
-      ...state,
-      isLoading: true,
-    };
-  }),
-
-  on(fromItems.deleteItemSuccess, (state, { item }) => {
-    return {
-      ...state,
-      isLoading: false,
-      items: state.items.filter((it) => it.id !== item.id),
-    };
-  })
+export const courseReducer = createReducer(
+  initialState,
+  on(CourseApiActions.getCourses, (state) => ({ 
+    ...state, 
+    loading: true 
+  })),
+  on(CourseApiActions.getCoursesSuccess, (state, { courses }) => ({ 
+    ...state, 
+    courses, 
+    loading: false 
+  })),
+  on(CourseApiActions.getCoursesFailure, (state, { error }) => ({ 
+    ...state, 
+    error, 
+    loading: false 
+  })),
+  on(CourseApiActions.getCourseId, (state, { id }) => ({
+    ...state, 
+    selectedCourseId: id
+  }))
 );
-
-export function itemsReducers(state = initialItemsState, actions: Action): ItemState {
-    return reducer(state, actions);
-}

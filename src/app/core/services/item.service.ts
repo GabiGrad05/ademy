@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Item } from '../models/item.model';
 import { HttpClient } from '@angular/common/http';
 
@@ -13,6 +13,12 @@ export class ItemService {
 
   getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.courseUrl}`);
+  }
+
+  getItemId(id: number | undefined): Observable<Item | undefined> {
+    return this.getItems().pipe(
+      map((course: Item[]) => course.find((course) => course.id === id))
+    );
   }
 
   createItem(item: Item): Observable<Item> {

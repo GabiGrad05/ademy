@@ -1,0 +1,31 @@
+<section class="container-fluid footer">
+  <div class="container d-flex justify-content-between pt-4">
+    <div>
+      <p class="text-white">Info about Audemy</p>
+    </div>
+    <div>
+      <p class="text-white">Help and Support</p>
+      <p class="text-white">Informations</p>
+    </div>
+    <div>
+      <p class="text-white">Data</p>
+      <p class="text-white">Settings</p>
+      <p class="text-white">News</p>
+    </div>
+    <div class="">
+      <select
+        class="form-select form-select"
+        #selectedLang
+        (change)="onSwitchLang(selectedLang.value)"
+      >
+        <option
+          *ngFor="let language of translate.getLangs()"
+          [value]="language"
+          [selected]="language === translate.currentLang"
+        >
+          {{ language }}
+        </option>
+      </select>
+    </div>
+  </div>
+</section>

@@ -7,13 +7,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BannerComponent } from './banner/banner.component';
 import { GenericCardComponent } from './generic-card/generic-card.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     BannerComponent,
-    GenericCardComponent
+    GenericCardComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +24,6 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     TranslateModule
   ],
-  exports: [HeaderComponent, BannerComponent, GenericCardComponent]
+  exports: [HeaderComponent, BannerComponent, GenericCardComponent, FooterComponent]
 })
 export class SharedModule { }

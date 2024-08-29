@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Item } from 'src/app/core/models/item.model';
-import * as fromItems from '../../state/item/index';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { CourseApiActions } from 'src/app/state/item/items.actions';
+import { selectCoursesList } from 'src/app/state/item/item.selectors';
 
 @Component({
   selector: 'app-items',
@@ -42,16 +43,16 @@ export class ItemsComponent {
   // }
 
   onDeleteItem(item: Item): void {
-    this.store.dispatch(fromItems.deleteItem({ item }));
+    this.store.dispatch(CourseApiActions.deleteCourse({ course: item }));
   }
 
   private initDispatch(): void {
-    this.store.dispatch(fromItems.getItems());
+    this.store.dispatch(CourseApiActions.getCourses());
   }
 
   private initSubscriptions(): void {
-    this.items$ = this.store.pipe(select(fromItems.selectItemList));
-    this.isLoading$ = this.store.pipe(select(fromItems.selectItemIsLoading));
+    this.items$ = this.store.pipe(select(selectCoursesList));
+   // this.isLoading$ = this.store.pipe(select(CourseApiActions.selectItemIsLoading));
   }
 
   private iniFormItem() {

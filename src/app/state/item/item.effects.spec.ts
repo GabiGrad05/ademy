@@ -1,17 +1,17 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
-import { ItemsEffects } from './item.effects';
+import { CoursesEffects } from './item.effects';
 
 describe('ItemsEffects', () => { //use marbles
-  let effects: ItemsEffects;
+  let effects: CoursesEffects;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       providers: [
-        ItemsEffects
+        CoursesEffects
       ],
     });
 
-    effects = TestBed.inject(ItemsEffects);
+    effects = TestBed.inject(CoursesEffects);
   }));
 
   it('should be created', () => {
